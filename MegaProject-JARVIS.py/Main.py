@@ -1,3 +1,25 @@
 import speech_recognition as sr
 import webbrowser
-if __name__=="__main__"
+import pyttsx3
+
+recognizer=sr.Recognizer()
+engine=pyttsx3.init()
+
+def speak(text):
+    engine.say(text)
+    engine.runAndWait()
+
+if __name__=="__main__":
+    speak("Initializing Jarvis.....")  #It'll speak this text when listen for the wake word"Jarvis"
+    while True:
+        r=sr.Recognizer()
+        with sr.Microphone() as source: #obtain audio from microphone.
+            print("Listening....")
+            audio=r.listen(source,timeout=2)
+        print("recognising....") 
+        try:
+         command=r.recognize_google(audio)
+         print(command)
+        except Exception as e:
+            print("Error; {0}".format(e))
+        
