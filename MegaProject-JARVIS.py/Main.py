@@ -1,7 +1,7 @@
 import speech_recognition as sr
 import webbrowser
 import pyttsx3
-
+import MusicLibrary
 recognizer=sr.Recognizer()
 engine=pyttsx3.init('sapi5')
 
@@ -16,9 +16,11 @@ def processcommand(c):
         webbrowser.open("https://www.youtube.com")
     elif "open facebook" in c.lower():
         webbrowser.open("https://www.facebook.com")
-    print(c)
-    pass
-
+    elif c.lower().startswith("play"):
+        song=c.lower().split(" ")[1]
+        link=MusicLibrary.Music[song]
+        webbrowser.open(link)
+        
 if __name__=="__main__":
     speak("Initializing Jarvis.....")  #It'll speak this text when listen for the wake word"Jarvis"
     while True:
@@ -39,4 +41,4 @@ if __name__=="__main__":
                     command=r.recognize_google(audio)
                     processcommand(command)
         except Exception as e:
-            print("Error; {0}".format(e))
+            print("Error; {0}".format(e)) 
