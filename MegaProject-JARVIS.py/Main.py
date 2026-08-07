@@ -2,12 +2,26 @@ import speech_recognition as sr
 import webbrowser
 import pyttsx3
 import MusicLibrary
+import requests
+from groq import Groq
 recognizer=sr.Recognizer()
 engine=pyttsx3.init('sapi5')
 
 def speak(text):
     engine.say(text)
     engine.runAndWait()
+
+def aiprocess(command):
+    import Client
+    completion=Client.completion
+    response=completion.create(
+        model="llama-3.3-70b-versatile",
+        messages=[
+            {"role": "system", "content": "You are a virtual assistant named Jarvis skilled in general tasks like Alexa and google cloud"},
+            {"role": "user", "content": command}
+        ]
+    )
+    return response.choices[0].message.content
     
 def processcommand(c):
     if "open google" in c.lower():
