@@ -6,7 +6,7 @@ completion=client.chat.completions.create(
   model="llama-3.3-70b-versatile",
   messages=[
   {"role": "system", "content": "You are a virtual assistant named Jarvis skilled in general tasks like Alexa and google cloud"},
-  {"role": "user", "content": "what is coding"}
+  {"role": "user", "content": "command"}
  ]
 )
 print(completion.choices[0].message.content)
