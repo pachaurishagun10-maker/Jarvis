@@ -34,6 +34,19 @@ def processcommand(c):
         song=c.lower().split(" ")[1]
         link=MusicLibrary.Music[song]
         webbrowser.open(link)
+
+    elif "news" in c.lower():
+        r=requests.get("https://newsapi.org/v2/top-headlines?country=in&apiKey={newsapi}")
+        if r.status_code==200:
+            data=r.json() #Parse the JSON response
+            articles=data.get('articles',[]) #Extract the articles
+            for article in articles:   #Print the headlines
+                speak(article['title'])
+
+    else:
+        output=aiprocess(c)
+        speak(output)
+
         
 if __name__=="__main__":
     speak("Initializing Jarvis.....")  #It'll speak this text when listen for the wake word"Jarvis"
