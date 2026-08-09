@@ -58,21 +58,29 @@ def processcommand(c):
 
 if __name__=="__main__":
     speak("Initializing Jarvis.....")  #It'll speak this text when listen for the wake word"Jarvis"
-    r=sr.Recognizer()
+    r=sr.Recognizer() #Adjust background noice
+    r.dyanamic_energy_threshold=True
+    r.pause_threshold=1
+
     while True:
-        print("Recognizing....")
         try:
             with sr.Microphone() as source: #obtain audio from microphone.
                print("Listening....")
-               audio=r.listen(source,timeout=3,phrase_time_limit=3)
+               r.adjust_for_ambient_noise(source,duration=1)
+               audio=r.listen(source,timeout=5,phrase_time_limit=3)
             word=r.recognize_google(audio)
+            print(f"Heard: {word}")
+
             if(word.lower()=="jarvis"):
                 speak("Yes")
                 #Listen for command
+
                 with sr.Microphone() as source: #obtain audio from microphone.
                     print("Jarvis is now active..")
-                    audio=r.listen(source)
+                    r.adjust_for_ambient_noise(source,duration=1)
+                    audio=r.listen(source,timeout=8,phrase_time_limit=8)
                     command=r.recognize_google(audio)
+                    print(f"Command: {command}")
                     processcommand(command)
         except Exception as e:
             print("Error; {0}".format(e)) 
