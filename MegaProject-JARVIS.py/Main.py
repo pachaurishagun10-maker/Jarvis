@@ -4,8 +4,14 @@ import pyttsx3
 import MusicLibrary
 import requests
 from groq import Groq
+import pygame
+pygame.mixer.init()
 recognizer=sr.Recognizer()
 engine=pyttsx3.init('sapi5')
+
+def play_sound(file):
+    pygame.mixer.music.load(file)
+    pygame.mixer.music.play()
 
 def speak(text):
     engine.say(text)
