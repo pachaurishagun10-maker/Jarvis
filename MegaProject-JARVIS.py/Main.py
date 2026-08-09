@@ -4,8 +4,12 @@ import pyttsx3
 import MusicLibrary
 import requests
 from groq import Groq
-import pygame
-pygame.mixer.init()
+import os
+import re
+import json
+import subprocess
+import urllib.parse
+from datetime import datetime
 recognizer=sr.Recognizer()
 engine=pyttsx3.init('sapi5')
 
