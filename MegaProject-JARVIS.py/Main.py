@@ -37,4 +37,3 @@ def speak(text):
     global TTS_METHOD
     print(f"\n JARVIS : {text}\n")
     clean_text=text.replace('°','degrees').replace('%','percent')
-    
