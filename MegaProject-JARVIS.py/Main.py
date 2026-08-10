@@ -31,3 +31,10 @@ except Exception:
         TTS_METHOD="powershell"
         print("[TTS] Using PowerShell fallback")
 recognizer=sr.Recognizer()
+
+def speak(text):
+    """Speak the given text aloud AND display it on the screen"""
+    global TTS_METHOD
+    print(f"\n JARVIS : {text}\n")
+    clean_text=text.replace('°','degrees').replace('%','percent')
+    
