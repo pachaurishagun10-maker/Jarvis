@@ -37,3 +37,14 @@ def speak(text):
     global TTS_METHOD
     print(f"\n JARVIS : {text}\n")
     clean_text=text.replace('°','degrees').replace('%','percent')
+
+    if TTS_METHOD=="sapi":
+        try:
+            speaker=win32com.client.Dispatch("SAPI.SpVoice")
+            speaker.Rate=1
+            speaker.Volume=100
+            speaker.Speak(clean_text)
+            return
+        except Exception as e:
+            print(f" [!] SAPI error: {e}, trying pyttsx3...")
+            TTS_METHOD="pyttsx3"
