@@ -103,3 +103,6 @@ def get_weather(City="Jaipur"):
             temp=current["temp_C"]
             desc=current["weatherDesc"][0]["value"]
             humidity=current["humidity"]
+            return f"Could not fetch weather data for {City}."
+    except Exception as e:
+        return f" Weather service error: {e}"
