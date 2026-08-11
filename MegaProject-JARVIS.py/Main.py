@@ -48,3 +48,23 @@ def speak(text):
         except Exception as e:
             print(f" [!] SAPI error: {e}, trying pyttsx3...")
             TTS_METHOD="pyttsx3"
+def aiprocess(command_text):
+    """Send a command to the Groq AI and get a response"""
+    try:
+        client=Groq(api_key=GROQ_API_KEY)
+        completion = client.chat.completions.create(
+            model="llama-3.3-70b-versatile",
+            messages=[
+                {
+                    "role":"system",
+                    "content":(
+                        "You are a virtual assistant named JARVIS,skilled in general tasks"
+                        "You are helpful,creative,intelligent,and give concise answers to questions"
+                    )
+              },
+              {"role":"user", "content":command_text}
+            ]
+        )
+        return completion.choices[0].message.content
+    except Exception as e:
+        return "Sorry, I couldn't process that command."
