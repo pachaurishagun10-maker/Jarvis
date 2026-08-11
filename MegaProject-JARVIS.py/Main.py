@@ -67,4 +67,30 @@ def aiprocess(command_text):
         )
         return completion.choices[0].message.content
     except Exception as e:
-        return "Sorry, I couldn't process that command."
+        return f"Sorry, I couldn't process that command.Error:{e}"
+
+def google_search(query):
+    """Search Google and return top results using DuckDuckGo instant answer API"""
+    try:
+        url=f"https://api.duckduckgo.com/?q={urllib.parse.quote(query)}&format=json&no_html=1"
+        response=requests.get(url,timeout=10)
+        if response.status_code==200:
+            data=response.json()
+            if data.get("AbstractText"):
+                return data["AbstractText"]
+            if data.get("Answer"):
+                return data["Answer"]
+            if data.get("RelatedTopics") and len(data["RelatedTopics"])>0:
+                results=[]
+                for topic in data["RealtedTopics"][:3]:
+                    if isinstance(topic,dict) and topic.get("Text"):
+                        results.append(topic["Text"])
+                if results:
+                    return "|".join(results)
+                return None
+    except Exception as e:
+            print(f" [!] Search error: {e}")
+            return None
+ 
+
+    
