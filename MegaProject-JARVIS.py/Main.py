@@ -91,6 +91,15 @@ def google_search(query):
     except Exception as e:
             print(f" [!] Search error: {e}")
             return None
- 
 
-    
+def get_weather(City="Jaipur"):
+    """Get weather info using wttr.in"""
+    try:
+        url=f"https://wttr.in/{urllib.parse.quote(City)}?format=j1"
+        response=requests.get(url,timeout=10)
+        if response.status_code==200:
+            data=response.json()
+            current=data["current_condition"][0]
+            temp=current["temp_C"]
+            desc=current["weatherDesc"][0]["value"]
+            humidity=current["humidity"]
