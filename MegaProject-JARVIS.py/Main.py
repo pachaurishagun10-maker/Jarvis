@@ -126,3 +126,26 @@ def get_news():
         return [f"News API returned status{response.status_code}"]
     except Exception as e:
             return[f"News error: {e}"]
+
+def processcommand(command):
+    """Process the recognized voice command and execute actions."""
+    c=command.lower().strip()
+    print(f"\n{'='*50}")
+    print(f"YOUR COMMAND:{command}")
+    print(f"{'='*50}")
+
+    if "open Google" in c:
+        speak("Opening Google...")
+        webbrowser.open("https://www.Google.com")
+    
+    if "open Youtube" in c:
+        speak("Opening Youtube...")
+        webbrowser.open("https://www.Youtube.com")
+    
+    if "open Github" in c:
+        speak("Opening Github...")
+        webbrowser.open("https://www.Github.com")
+    
+    if "open chatgpt" in c:
+        speak("Opening chatgpt ...")
+        webbrowser.open("https://www.chat.openai.com")    
