@@ -117,6 +117,12 @@ def get_news():
             articles=data.get('articles',[])
             if articles:
                 headlines=[]
-                for i,articles in enumerate(articles[:5],1):
+                for i,article in enumerate(articles[:5],1):
                     title=article.get('title','No title')
-                
+                    headlines.append(f"Headline {i}: {title}")
+                    print(f" [News] Headline {i}: {title}")
+                return headlines
+            return ["No news articles found."]
+        return [f"News API returned status{response.status_code}"]
+    except Exception as e:
+            return[f"News error: {e}"]
