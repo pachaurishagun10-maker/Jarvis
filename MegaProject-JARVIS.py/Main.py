@@ -106,3 +106,17 @@ def get_weather(City="Jaipur"):
             return f"Could not fetch weather data for {City}."
     except Exception as e:
         return f" Weather service error: {e}"
+    
+def get_news():
+    """Fetch top news headlines using NewsAPI"""
+    try:
+        url=f"https://newsapi.org/v2/top-headlines?language=en&apiKey={NEWS_API_KEY}"
+        response=requests.get(url,timeout=10)
+        if response.status_code==200:
+            data=response.json()
+            articles=data.get('articles',[])
+            if articles:
+                headlines=[]
+                for i,articles in enumerate(articles[:5],1):
+                    title=article.get('title','No title')
+                
