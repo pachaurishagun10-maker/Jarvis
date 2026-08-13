@@ -157,3 +157,21 @@ def processcommand(command):
         url=f"https://www.{site_name}.com"
         speak(f"Opening {site_name} for you.")
         webbrowser.open(url)
+    elif c.startswith("play"):
+        song=c.replace("play","").strip()
+        matched_song=None
+        if song in MusicLibrary.Music:
+            matched_song=song
+        else:
+            song_nospace=song.replace(" ","")
+            for lib_song  in MusicLibrary.Music:
+                if lib_song.replace(" ",""==song_nospace):
+                    matched_song=lib_song 
+                    break
+        if matched_song:
+            speak(f"Playing {matched_song} for you.")
+            webbrowser.open(MusicLibrary.Music[matched_song])
+        else:
+            speak(f"Searching {song} on Youtube")
+            search_url=f"https://www.youtube.com/results?search_query={urllib.parse.quote(song)}"
+            webbrowser.open(search_url)
