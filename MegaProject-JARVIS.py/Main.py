@@ -115,6 +115,7 @@ def get_news():
         if response.status_code==200:
             data=response.json()
             articles=data.get('articles',[])
+
             if articles:
                 headlines=[]
                 for i,article in enumerate(articles[:5],1):
@@ -138,14 +139,21 @@ def processcommand(command):
         speak("Opening Google...")
         webbrowser.open("https://www.Google.com")
     
-    if "open Youtube" in c:
+    elif "open Youtube" in c:
         speak("Opening Youtube...")
         webbrowser.open("https://www.Youtube.com")
     
-    if "open Github" in c:
+    elif "open Github" in c:
         speak("Opening Github...")
         webbrowser.open("https://www.Github.com")
     
-    if "open chatgpt" in c:
+    elif "open chatgpt" in c:
         speak("Opening chatgpt ...")
         webbrowser.open("https://www.chat.openai.com")    
+
+    elif c.startswith("open"):
+        site_name=c.replace("open"," ").strip()
+        site_name=site_name.replace(" ","")
+        url=f"https://www.{site_name}.com"
+        speak(f"Opening {site_name} for you.")
+        webbrowser.open(url)
