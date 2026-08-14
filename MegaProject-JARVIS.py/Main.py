@@ -175,3 +175,9 @@ def processcommand(command):
             speak(f"Searching {song} on Youtube")
             search_url=f"https://www.youtube.com/results?search_query={urllib.parse.quote(song)}"
             webbrowser.open(search_url)
+
+    elif "news" in c:
+        speak("Fetching the latest news headlines for you.")
+        headlines=get_news()
+        for headline in headlines[:5]:
+            speak(headline)
