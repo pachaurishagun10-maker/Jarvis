@@ -181,3 +181,13 @@ def processcommand(command):
         headlines=get_news()
         for headline in headlines[:5]:
             speak(headline)
+
+    elif "weather" in c:
+        city="Jaipur" 
+        weather_patterns= ["weather in","weather of","weather for"]
+        for pattern in weather_patterns:
+            if pattern in c:
+                city=c.split(pattern)[1].strip()
+                break
+        result = get_weather(city)
+        speak(result)
