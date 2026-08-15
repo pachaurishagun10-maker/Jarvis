@@ -191,3 +191,11 @@ def processcommand(command):
                 break
         result = get_weather(city)
         speak(result)
+
+    elif "time" in c:
+        current_time=datetime.now().strftime("%I:%M %p")
+        speak(f"The current time is {current_time}")
+    elif "date" in c or "today" in c and "what" in c:
+        current_date=datetime.now().strftime("%B %d,%Y")
+        speak(f"Today's date is {current_date}") 
+        
