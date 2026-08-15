@@ -198,4 +198,9 @@ def processcommand(command):
     elif "date" in c or "today" in c and "what" in c:
         current_date=datetime.now().strftime("%B %d,%Y")
         speak(f"Today's date is {current_date}") 
-        
+
+    elif any(word in c for word in ["search","google","look up","find"]):
+        search_terms=c
+        for remove_word in ["search","google","look up","find"]:
+            search_terms = search_terms.replace(remove_word,"").strip()
+            speak(f"Searching for {search_terms}")
