@@ -204,3 +204,21 @@ def processcommand(command):
         for remove_word in ["search","google","look up","find"]:
             search_terms = search_terms.replace(remove_word,"").strip()
             speak(f"Searching for {search_terms}")
+
+            result = google_search(search_terms)
+            if result:
+                speak(result)
+            else:
+                speak("Let me think abour that")
+                result=aiprocess(command)
+                speak(result)
+
+            search_url=f"https://www.google.com/search?q={urllib.parse.quote(search_terms)}"
+            webbrowser.open(search_url)
+    elif any(word in c for word in["stop","exit","quit","bye","goodbye","shutdown"]):
+            speak("Goodbye! Shutting down Jarvis.")
+            exit(0)
+    else:
+        speak("Let me think about that...")
+        result=aiprocess(command)
+        speak(result)
