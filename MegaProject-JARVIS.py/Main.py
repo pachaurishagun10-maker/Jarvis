@@ -222,3 +222,28 @@ def processcommand(command):
         speak("Let me think about that...")
         result=aiprocess(command)
         speak(result)
+ 
+if __name__=="__main__":
+    print("\n" + "=" *60)
+    print("JARVIS AI VOICE ASSISTANT-Enhanced Edition")
+    print(" " + "=" *56)
+    print("Say 'Jarvis' to activate, then give your command")
+    print("Commands:open[website],play[song],news")
+    print("weather,search[topic],or ask anything!")
+    print("Say 'Stop' or 'Exit' to quit")
+    print("=" * 60 + "\n")
+    speak("Initializing Jarvis.I am ready to asisst you.")
+    r=sr.recognizer()
+    r.dyanamic_energy_threshold = True 
+    r.pause_threshold=1
+
+    while True:
+        try:
+            with sr.Microphone() as source:
+                print("\n Listening for wake word 'Jarvis'...")
+                r.adjust_for_ambient_noise(source,duration=0.5)
+                audio=r.listen(source,timeout=5,phrase_time_limit=3)
+            word=r.recognize_google(audio)
+            print(f"Heard:{word}")
+            if "Jarvis" in word.lower():
+                speak("Yes,I'm listening. What can i do for you?")
