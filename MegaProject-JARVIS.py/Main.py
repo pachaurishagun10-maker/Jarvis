@@ -247,3 +247,22 @@ if __name__=="__main__":
             print(f"Heard:{word}")
             if "Jarvis" in word.lower():
                 speak("Yes,I'm listening. What can i do for you?")
+
+                with sr.Microphone() as source:
+                    print("\n JARVIS IS ACTIVE-Speak your command...")
+                    r.adjust_for_ambient_noise(source,duration=0.5)
+                    audio=r.listen(source,timeout=10,phase_time_limit=10)
+                    command=r.recognise_google(audio)
+                    processcommand(command)
+        except sr.WaitTimeoutError:
+            pass
+        except sr.UnknownValueError:
+            pass
+        except sr.RequestError as e: 
+            print(f" [!] Speech Recognition service error: {e}")
+            print(" [!] Check your internet connection.")
+        except KeyboardInterrupt:
+            speak("Goodbye!")
+            break
+        except Exception as e:
+            print(f" [!] Error: {e}")
