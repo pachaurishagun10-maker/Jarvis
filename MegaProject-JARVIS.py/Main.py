@@ -1,15 +1,13 @@
 import speech_recognition as sr
+import win32com.client
 import webbrowser
 import pyttsx3
 import MusicLibrary
 import requests
 from groq import Groq
-import os
-import re
-import json
-import subprocess
 import urllib.parse
 from datetime import datetime 
+
 GROQ_API_KEY="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"
 NEWS_API_KEY="39d0c5dcc136403b8c20772e1287b4fe"
 
@@ -82,7 +80,7 @@ def google_search(query):
                 return data["Answer"]
             if data.get("RelatedTopics") and len(data["RelatedTopics"])>0:
                 results=[]
-                for topic in data["RealtedTopics"][:3]:
+                for topic in data["RelatedTopics"][:3]:
                     if isinstance(topic,dict) and topic.get("Text"):
                         results.append(topic["Text"])
                 if results:
