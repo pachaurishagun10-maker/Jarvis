@@ -123,9 +123,7 @@ def get_news():
 def processcommand(command):
     """Process the recognized voice command and execute actions."""
     c=command.lower().strip()
-    print(f"\n{'='*50}")
-    print(f"YOUR COMMAND:{command}")
-    print(f"{'='*50}")
+    print(f"\n{'='*50}\nYOUR COMMAND:{command}\n{'='*50}")
 
     if "open Google" in c:
         speak("Opening Google...")
@@ -142,7 +140,6 @@ def processcommand(command):
     elif "open chatgpt" in c:
         speak("Opening chatgpt ...")
         webbrowser.open("https://www.chat.openai.com")    
-
     elif c.startswith("open"):
         site_name=c.replace("open"," ").strip()
         site_name=site_name.replace(" ","")
@@ -191,30 +188,15 @@ def processcommand(command):
         current_date=datetime.now().strftime("%B %d,%Y")
         speak(f"Today's date is {current_date}") 
 
-    elif any(word in c for word in ["search","google","look up","find"]):
-        search_terms=c
-        for remove_word in ["search","google","look up","find"]:
-            search_terms = search_terms.replace(remove_word,"").strip()
-            speak(f"Searching for {search_terms}")
-
-            result = google_search(search_terms)
-            if result:
-                speak(result)
-            else:
-                speak("Let me think abour that")
-                result=aiprocess(command)
-                speak(result)
-
-            search_url=f"https://www.google.com/search?q={urllib.parse.quote(search_terms)}"
-            webbrowser.open(search_url)
-    elif any(word in c for word in["stop","exit","quit","bye","goodbye","shutdown"]):
-            speak("Goodbye! Shutting down Jarvis.")
-            exit(0)
+    elif any(word in c for word in ["stop","exit","bye","goodbye"]):
+        speak("Goodbye! Shutting down Jarvis.")
+        exit(0)
+        
     else:
         speak("Let me think about that...")
         result=aiprocess(command)
         speak(result)
- 
+
 if __name__=="__main__":
     print("\n" + "=" *60)
     print("JARVIS AI VOICE ASSISTANT-Enhanced Edition")
