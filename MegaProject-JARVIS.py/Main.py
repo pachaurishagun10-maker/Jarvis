@@ -6,7 +6,7 @@ import MusicLibrary
 import requests
 from groq import Groq
 import urllib.parse
-from datetime import datetime 
+ 
 
 GROQ_API_KEY="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"
 NEWS_API_KEY="39d0c5dcc136403b8c20772e1287b4fe"
@@ -64,7 +64,7 @@ def aiprocess(command_text):
 def google_search(query):
     """Search Google and return top results using DuckDuckGo instant answer API"""
     try:
-        url=f"https://api.duckduckgo.com/?q={urllib.parse.quote(query)}&format=json&no_html=1"
+    
         response=requests.get(url,timeout=10)
         if response.status_code==200:
             data=response.json()
