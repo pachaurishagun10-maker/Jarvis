@@ -200,13 +200,10 @@ def processcommand(command):
 if __name__=="__main__":
     print("\n" + "=" *60)
     print("JARVIS AI VOICE ASSISTANT-Enhanced Edition")
-    print(" " + "=" *56)
-    print("Say 'Jarvis' to activate, then give your command")
-    print("Commands:open[website],play[song],news")
-    print("weather,search[topic],or ask anything!")
-    print("Say 'Stop' or 'Exit' to quit")
-    print("=" * 60 + "\n")
+    print("=" *60 + "\n")
+
     speak("Initializing Jarvis.I am ready to asisst you.")
+    
     r=sr.Recognizer()
     r.dynamic_energy_threshold = True 
     r.pause_threshold=1
