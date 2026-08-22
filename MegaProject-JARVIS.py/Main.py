@@ -203,30 +203,30 @@ if __name__=="__main__":
     print("=" *60 + "\n")
 
     speak("Initializing Jarvis.I am ready to asisst you.")
-    
+
     r=sr.Recognizer()
     r.dynamic_energy_threshold = True 
     r.pause_threshold=1
-
     while True:
         try:
             with sr.Microphone() as source:
                 print("\n Listening for wake word 'Jarvis'...")
                 r.adjust_for_ambient_noise(source,duration=0.5)
                 audio=r.listen(source,timeout=5,phrase_time_limit=5)
-            word=r.recognize_google(audio)
-            print(f"Heard:{word}")
+                word=r.recognize_google(audio)
+                print(f"Heard:{word}")
 
-            if "Jarvis" in word.lower():
-                speak("Yes,I'm listening. What can i do for you?")
-                print("listening for your command...")
+                if "Jarvis" in word.lower():
+                    command=word.lower().replace("Jarvis", "").strip()
 
-                with sr.Microphone() as source:
-                    print("\n JARVIS IS ACTIVE-Speak your command...")
-                    r.adjust_for_ambient_noise(source,duration=0.5)
-                    audio=r.listen(source,timeout=10,phase_time_limit=10)
-                    command=r.recognize_google(audio)
-                    processcommand(command)
+                    if not command:
+                        speak("Yes,I'm listening.What can i do for you?")
+                        print("\n JARVIS IS ACTIVE-Speak your command...")
+                        r.adjust_for_ambient_noise(source,duration=0.5)
+                        audio=r.listen(source,timeout=10,phase_time_limit=10)
+                        command=r.recognize_google(audio)
+                    if command:
+                        processcommand(command)
         except sr.WaitTimeoutError:
             pass
         except sr.UnknownValueError:
@@ -235,7 +235,7 @@ if __name__=="__main__":
             print(f" [!] Speech Recognition service error: {e}")
             print(" [!] Check your internet connection.")
         except KeyboardInterrupt:
-            speak("Goodbye!")c
+            speak("Goodbye!")
             break
         except Exception as e:
             print(f" [!] Error: {e}")
